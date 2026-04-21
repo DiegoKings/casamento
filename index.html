@@ -1,0 +1,1471 @@
+<html lang="pt-BR" data-theme="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cifras Studio - Cerimônia Matheus</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.3);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --chord-color: #38bdf8;
+      --radius: 20px;
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-gradient: linear-gradient(145deg, #f1f5f9 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(0, 0, 0, 0.05);
+      --text-main: #0f172a;
+      --text-dim: #64748b;
+      --accent: #0284c7;
+      --accent-glow: rgba(2, 132, 199, 0.2);
+      --chord-color: #0284c7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    
+    body { 
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+      transition: var(--transition);
+    }
+
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    .app-header {
+      text-align: center;
+      padding: 40px 20px;
+      margin-bottom: 40px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    }
+    .app-header h1 {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(to right, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+    .app-header p { color: var(--text-dim); font-size: 1.1rem; letter-spacing: 1px; }
+
+    .nav-bar {
+      position: sticky;
+      top: 20px;
+      z-index: 100;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      padding: 15px 25px;
+      border-radius: 50px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .nav-actions { display: flex; gap: 10px; }
+    
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+    .btn-primary { background: var(--accent); color: white; box-shadow: 0 4px 15px var(--accent-glow); }
+    .btn-primary:hover { transform: scale(1.05); filter: brightness(1.1); }
+    .btn-ghost { background: transparent; color: var(--text-main); border: 1px solid var(--glass-border); }
+    .btn-ghost:hover { background: var(--glass-border); }
+
+    .ceremony-section-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin: 60px 0 25px;
+      padding-left: 15px;
+      border-left: 5px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      outline: none;
+    }
+
+    .index-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .index-item {
+      background: var(--card-bg);
+      padding: 15px 20px;
+      border-radius: 15px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 500;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .index-item:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateX(5px);
+    }
+    .index-moment { font-size: 0.75rem; text-transform: uppercase; opacity: 0.7; letter-spacing: 1px; outline: none; }
+    .index-title { font-weight: 700; font-size: 1rem; outline: none; }
+
+    .music-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 30px;
+      margin-bottom: 40px;
+      scroll-margin-top: 100px;
+      transition: var(--transition);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .title-group { flex: 1; }
+    .title-group .moment-tag { font-size: 0.8rem; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 5px; display: block; outline: none; }
+    .title-group h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; outline: none; }
+    .title-group .singer-info { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 10px; display: block; outline: none; }
+    
+    .badge {
+      background: var(--success);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      outline: none;
+    }
+
+    .observation-box {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warning);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      outline: none;
+    }
+    .observation-box strong { color: var(--warning); outline: none; }
+
+    .control-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-tool {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+    .btn-tool:hover { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-wide { width: auto; padding: 0 15px; font-size: 0.8rem; }
+
+    .chord-area {
+      width: 100%;
+      min-height: 400px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 25px;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: 15px;
+      line-height: 1.8;
+      resize: vertical;
+      transition: var(--transition);
+      white-space: pre-wrap;
+      overflow-y: auto;
+      outline: none;
+    }
+    .chord-area:focus { border-color: var(--accent); background: rgba(0,0,0,0.3); }
+
+    .chord {
+      color: var(--chord-color);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .fs-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-gradient);
+      z-index: 2000;
+      padding: 20px;
+      overflow-y: auto;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .fs-overlay.active { display: flex; }
+    
+    .fs-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--danger);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+      z-index: 2001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .fs-close:hover { transform: scale(1.1); }
+
+    .fs-content-pure {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      white-space: pre-wrap;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1.8;
+      color: var(--text-main);
+      padding: 40px 10px;
+    }
+
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 10px 25px var(--accent-glow);
+      border: none;
+      transition: var(--transition);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .fab.visible { opacity: 1; pointer-events: auto; }
+    .fab:hover { transform: scale(1.1) rotate(15deg); }
+
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      .nav-bar { border-radius: 20px; top: 10px; padding: 10px 15px; }
+      .music-card { padding: 20px; }
+      .app-header { padding: 30px 15px; }
+      .index-grid { grid-template-columns: 1fr; }
+      .btn span:last-child { display: none; }
+      .btn { padding: 10px; }
+      .fs-content-pure { padding: 60px 5px; font-size: 15px; }
+    }
+  
+    /* Audio Player */
+    .audio-player {
+      margin-top: 18px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .audio-play-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px var(--accent-glow);
+      transition: all 0.2s;
+      color: white;
+    }
+    .audio-play-btn:hover { transform: scale(1.08); filter: brightness(1.15); }
+    .audio-progress-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .audio-progress {
+      width: 100%;
+      height: 5px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255,255,255,0.15);
+      border-radius: 99px;
+      cursor: pointer;
+      outline: none;
+      accent-color: var(--accent);
+    }
+    .audio-progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 4px var(--accent-glow);
+    }
+    .audio-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .btn-open-audio {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      font-size: 1rem;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .btn-open-audio:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.08);
+    }
+</style>
+</head>
+<body style="overflow: auto;">
+
+  <div class="container">
+    <header class="app-header">
+      <h1 contenteditable="true">Cifras Studio</h1>
+      <p contenteditable="true">ROTEIRO COMPLETO - CERIMÔNIA MATHEUS</p>
+    </header>
+
+    <nav class="nav-bar">
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="toggleTheme()" title="Mudar Tema">
+          <span id="theme-icon">🌙</span> <span>Tema</span>
+        </button>
+      </div>
+      <div class="nav-actions">
+        <button class="btn btn-primary" onclick="saveContent()">
+          <span>💾</span> <span>Salvar Repertório</span>
+        </button>
+      </div>
+    </nav>
+
+    <div id="index-root"><h3 class="ceremony-section-title" contenteditable="true" id="secao-title-0">🚶‍♂️ ENTRADAS</h3><div class="index-grid">
+            <a href="#music-1" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-1">NOIVO + MÃE</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-1">Na Gravidade da Presença</span>
+            </a>
+          
+            <a href="#music-2" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-2">PASTORES</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-2">Casa (Palavrantiga ao vivo)</span>
+            </a>
+          
+            <a href="#music-3" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-3">PAIS E AVÓS</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-3">Te Agradeço</span>
+            </a>
+          
+            <a href="#music-4" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-4">PADRINHOS E MADRINHAS</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-4">Nossa Riqueza</span>
+            </a>
+          
+            <a href="#music-5" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-5">FLORISTA</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-5">Nossa Riqueza (Instrumental)</span>
+            </a>
+          
+            <a href="#music-6" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-6">NOIVA 👰‍♀️</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-6">Marcha + Dono do Meu Ser</span>
+            </a>
+          
+            <a href="#music-7" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-7">MOMENTOS INICIAIS (SOM AMBIENTE)</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-7">Prenda-me a Ti (Instrumental)</span>
+            </a>
+          
+            <a href="#music-8" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-8">ALIANÇAS E VOTOS</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-8">Prenda-me a Ti</span>
+            </a>
+          
+            <a href="#music-9" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-9">ORAÇÃO E BÊNÇÃO</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-9">Canção de Simeão (refrão instrumental)</span>
+            </a>
+          
+            <a href="#music-10" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-10">MOMENTO DE ADORAÇÃO</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-10">Consagração + Louvor ao rei</span>
+            </a>
+          
+            <a href="#music-11" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-11">BEIJO 💍</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-11">Amor que nos faz um (refrão)</span>
+            </a>
+          
+            <a href="#music-12" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-12">SAÍDA</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-12">Amor que Nos Faz Um</span>
+            </a>
+          </div></div>
+    <main id="music-root"><h3 class="ceremony-section-title" contenteditable="true" id="music-secao-title-0">🚶‍♂️ ENTRADAS</h3>
+            <article class="music-card" id="music-1">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-1">NOIVO + MÃE</span>
+                  <h2 contenteditable="true" id="titulo-1">Na Gravidade da Presença</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-1">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-1">Tom: E</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(1)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-1"><strong>Estrutura:</strong> Intro → 1ª parte → Refrão → Solo (intro com improviso para transição da próxima música)</div>
+              <div class="chord-area" id="editor-1" contenteditable="true">Na Gravidade da Presença
+Tom: <span class="chord">E</span>
+
+
+[Intro] |<span class="chord">C#m</span>|  |<span class="chord">B</span>|  |<span class="chord">E</span>|  |<span class="chord">A</span>|
+
+|<span class="chord">C#m</span>|  |<span class="chord">B</span>|  |<span class="chord">E</span>|  |<span class="chord">A</span>|
+Eu Te conhecia de ouvir falar
+Quando o mundo dentro de mim se calar
+Vem como as águas que cortam esse vale
+
+||<span class="chord">E</span>||   ||<span class="chord">C#m</span>||  ||<span class="chord">F#m</span>||  ||<span class="chord">B</span>||
+eu mal posso esperar
+
+|<span class="chord">C#m</span>|  |<span class="chord">B</span>|  |<span class="chord">E</span>|  |<span class="chord">A</span>|</div>
+            </article>
+          
+            <article class="music-card" id="music-2">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-2">PASTORES</span>
+                  <h2 contenteditable="true" id="titulo-2">Casa (Palavrantiga ao vivo)</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-2">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-2">Tom: D</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(2)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-2">Nenhuma observação</div>
+              <div class="chord-area" id="editor-2" contenteditable="true">Casa (Palavrantiga ao vivo)
+Tom: <span class="chord">D</span>
+
+
+[Intro]   |<span class="chord">D</span>|  (<span class="chord">D</span>#)  (<span class="chord">G</span>) |<span class="chord">D</span>|
+
+||<span class="chord">D</span>||  (<span class="chord">D</span>#) (<span class="chord">G</span>) |<span class="chord">D</span>|
+Deus preferiu essa carne
+
+|<span class="chord">D</span>|  (<span class="chord">D</span>) |<span class="chord">G</span>| |<span class="chord">Em</span>| |<span class="chord">A</span>|  |<span class="chord">D</span>|
+Me fez casa
+
+(<span class="chord">F#m</span>) (<span class="chord">G</span>)  3X
+|<span class="chord">A</span>|  
+(<span class="chord">F#m</span>) (<span class="chord">G</span>) |<span class="chord">A</span>| 
+Abri a porta
+<span class="chord">A</span> minha janela
+
+|<span class="chord">Bm</span>|  |<span class="chord">A</span>|  2x
+Dentro de mim
+
+(<span class="chord">D</span>)  (<span class="chord">D/F</span>#)  |<span class="chord">G</span>|  
+(<span class="chord">Bm</span>) (<span class="chord">D</span>) |<span class="chord">A</span>|
+Eu sou casa
+ô ô ô ô ô ô 
+
+
+(<span class="chord">F#m</span>) (<span class="chord">G</span>) (<span class="chord">F#m</span>) (<span class="chord">A</span>)  3x
+(<span class="chord">F#m</span>) (<span class="chord">G</span>) (<span class="chord">F#m</span>) (<span class="chord">G</span>)
+||<span class="chord">A</span>||  
+Lá fora</div>
+            </article>
+          
+            <article class="music-card" id="music-3">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-3">PAIS E AVÓS</span>
+                  <h2 contenteditable="true" id="titulo-3">Te Agradeço</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-3">🎤 Simone + Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-3">Tom: E</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(3)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-3">Nenhuma observação</div>
+              <div class="chord-area" id="editor-3" contenteditable="true">[Intro] <span class="chord">E9</span>  D7M(9)  E7M  D7M(9)
+
+[Primeira Parte]
+
+  <span class="chord">E9</span>                D7M(9)
+Por tudo o que tens feito
+  E7M                D7M(9)
+Por tudo o que vais fazer
+  <span class="chord">E9</span>            <span class="chord">A/C</span>#       <span class="chord">A/C</span>
+Por tuas promessas e tudo o que és
+   <span class="chord">C#m7</span>           <span class="chord">F#/A</span>#
+Eu quero te agradecer
+              <span class="chord">A/B</span> <span class="chord">E9</span>
+Com todo o meu ser
+
+[Pré-Refrão]
+
+     D7M(9)  <span class="chord">C#m7</span>
+Te agradeço
+
+
+
+     <span class="chord">E9</span>              <span class="chord">E/D</span>
+Te agradeço por me libertar e salvar
+ <span class="chord">A/C</span>#    <span class="chord">A/C</span>
+Por ter morrido em meu lugar
+     <span class="chord">E9</span>        D7M(9)
+Te agrade---ço
+          E7M   D7M(9)
+Jesus, te agrade---ço
+       <span class="chord">C#m7</span>     <span class="chord">F#/A</span>#
+Eu te agrade---ço
+     <span class="chord">A/B</span>   <span class="chord">E9</span>
+Te agrade---ço
+
+( <span class="chord">E9</span>  D7M(9)  E7M  D7M(9) )</div>
+            </article>
+          
+            <article class="music-card" id="music-4">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-4">PADRINHOS E MADRINHAS</span>
+                  <h2 contenteditable="true" id="titulo-4">Nossa Riqueza</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-4">🎤 Simone + Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-4">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(4)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-4"><strong>Obs:</strong> A música continua só instrumental para a florista passar.</div>
+              <div class="chord-area" id="editor-4" contenteditable="true">[Intro] (<span class="chord">A</span>) (<span class="chord">D</span>) (<span class="chord">F#m</span>) (<span class="chord">E</span>)
+
+(<span class="chord">F#m</span>)  (<span class="chord">A</span>) (<span class="chord">E</span>)  (<span class="chord">D</span>)
+(<span class="chord">B</span>)
+Na escola, na rua 
+<span class="chord">E</span>                   <span class="chord">B</span>
+Histórias vividas e do que virá
+
+<span class="chord">A</span>                        <span class="chord">B</span>
+Quem encontra alguém pra caminhar
+<span class="chord">D</span>
+Nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>           <span class="chord">B/D</span>#
+Tem esperança e gratidão no olhar
+<span class="chord">D</span>
+Os amigos são nossa riqueza
+
+<span class="chord">A</span>                   <span class="chord">B</span>
+Quem encontra alguém pra caminhar
+<span class="chord">D</span>
+Nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#
+Tem esperança e gratidão no olhar
+<span class="chord">D</span>
+Os amigos são nossa riqueza
+
+( <span class="chord">A</span> <span class="chord">D</span> <span class="chord">F#m</span> <span class="chord">E</span> )
+
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+Tá sempre presente com a gente
+<span class="chord">E</span>                   <span class="chord">D</span>
+Nas horas difíceis não pode faltar
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+É voz que incentiva, anima
+<span class="chord">E</span>                   <span class="chord">D</span>
+Coloca pra cima e nos faz levantar
+
+<span class="chord">F#m</span>       <span class="chord">A</span>         <span class="chord">E</span>         <span class="chord">D</span>
+<span class="chord">E</span> a gente fala das coisas da vida, é papo que não quer parar
+<span class="chord">F#m</span>       <span class="chord">A</span>         <span class="chord">E</span>         <span class="chord">B</span>
+Falamos de lutas, de sonhos, histórias vividas e do que virá
+
+<span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+Quem encontra alguém pra caminhar nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#      <span class="chord">D</span>
+Tem esperança e gratidão no olhar, os amigos são nossa riqueza
+
+<span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+Quem encontra alguém pra caminhar nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#      <span class="chord">D</span>
+Tem esperança e gratidão no olhar, os amigos são nossa riqueza
+
+<span class="chord">F#m</span>       <span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+<span class="chord">Em</span> todo tempo ama o amigo e na angústia nasce o irmão
+<span class="chord">F#m</span>       <span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+<span class="chord">Em</span> todo tempo ama o amigo e na angústia nasce o irmão
+
+( <span class="chord">F#m</span> <span class="chord">A</span> <span class="chord">B</span> <span class="chord">D</span> )
+( <span class="chord">F#m</span> <span class="chord">A</span> <span class="chord">B</span> <span class="chord">D</span> )
+
+<span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+Quem encontra alguém pra caminhar nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#      <span class="chord">D</span>
+Tem esperança e gratidão no olhar, os amigos são nossa riqueza
+
+<span class="chord">A</span>         <span class="chord">B</span>         <span class="chord">D</span>
+Quem encontra alguém pra caminhar nessa estrada que é viver
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#      <span class="chord">D</span>
+Tem esperança e gratidão no olhar, os amigos são nossa riqueza
+
+( <span class="chord">A</span> <span class="chord">D</span> <span class="chord">F#m</span> <span class="chord">E</span> )</div>
+            </article>
+          
+            <article class="music-card" id="music-5">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-5">FLORISTA</span>
+                  <h2 contenteditable="true" id="titulo-5">Nossa Riqueza (Instrumental)</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-5">🎸 Banda</span>
+                  <span class="badge" contenteditable="true" id="tone-5">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(5)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-5"><strong>Instrumental:</strong> Versão apenas com os instrumentos para a entrada da florista.</div>
+              <div class="chord-area" id="editor-5" contenteditable="true">[Intro] <span class="chord">A</span> <span class="chord">D</span> <span class="chord">F#m</span> <span class="chord">E</span>
+
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+[Melodia principal no Violão/Teclado]
+<span class="chord">E</span>                   <span class="chord">D</span>
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+<span class="chord">E</span>                   <span class="chord">D</span>
+
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+<span class="chord">E</span>                   <span class="chord">D</span>
+<span class="chord">F#m</span>                 <span class="chord">A</span>
+<span class="chord">E</span>                   <span class="chord">B</span>
+
+<span class="chord">A</span>                   <span class="chord">B</span>
+<span class="chord">D</span>
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#
+<span class="chord">D</span>
+
+<span class="chord">A</span>                   <span class="chord">B</span>
+<span class="chord">D</span>
+<span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">B/D</span>#
+<span class="chord">D</span>
+
+( <span class="chord">A</span> <span class="chord">D</span> <span class="chord">F#m</span> <span class="chord">E</span> )</div>
+            </article>
+          
+            <article class="music-card" id="music-6">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-6">NOIVA 👰‍♀️</span>
+                  <h2 contenteditable="true" id="titulo-6">Marcha + Dono do Meu Ser</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-6">🎤 Simone</span>
+                  <span class="badge" contenteditable="true" id="tone-6">Tom: F</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(6)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-6"><strong>🎺 Entrada:</strong> Entrada com clarins durante a marcha.</div>
+              <div class="chord-area" id="editor-6" contenteditable="true">[Marcha Nupcial em <span class="chord">C</span>]
+| <span class="chord">C</span> | <span class="chord">C</span> | <span class="chord">C</span> | <span class="chord">C</span> |
+| <span class="chord">C</span> | <span class="chord">C</span> | <span class="chord">G7</span> | <span class="chord">C</span> |
+
+[Parte <span class="chord">A</span>]
+| <span class="chord">Adim</span> | <span class="chord">B7</span> | <span class="chord">Em11</span> | <span class="chord">F6</span> |
+| <span class="chord">C/G</span> | <span class="chord">G7</span> | <span class="chord">C</span> | <span class="chord">C</span> |
+
+[Transição para <span class="chord">F</span>]
+
+[Dono do Meu Ser]
+[Intro] <span class="chord">F</span> <span class="chord">A#9</span>
+
+<span class="chord">F</span>
+Dono do meu ser
+<span class="chord">A#9</span>
+Guardião dos meus anseios
+<span class="chord">F</span>                   <span class="chord">A#9</span>
+O conhecedor do meu coração
+<span class="chord">C9</span>                  <span class="chord">A#9</span>
+Eu me entrego a ti
+<span class="chord">C9</span>                  <span class="chord">A#9</span>
+Eu me entrego a ti
+
+<span class="chord">F</span>
+Meu coração é só teu
+<span class="chord">A#9</span>
+Eu sou achado em teu amor
+
+( <span class="chord">F</span> <span class="chord">A#9</span> <span class="chord">F</span> <span class="chord">A#9</span> )
+
+<span class="chord">F</span>
+Eu sou teu pra sempre teu
+<span class="chord">A#9</span>
+Eu sou teu pra sempre teu
+<span class="chord">F</span>
+Eu sou teu pra sempre teu
+<span class="chord">A#9</span>
+Eu sou teu pra sempre teu jesus
+</div>
+            </article>
+          
+            <article class="music-card" id="music-7">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-7">MOMENTOS INICIAIS (SOM AMBIENTE)</span>
+                  <h2 contenteditable="true" id="titulo-7">Prenda-me a Ti&nbsp;</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-7">🎸 Arthur + Luan</span>
+                  <span class="badge" contenteditable="true" id="tone-7">Tom: Ab</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(7)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-7"><strong>Uso:</strong> Boas-vindas, oração inicial, casamento civil e palavra.<br><strong>Obs:</strong> Nessa musica o Arthur e luan irá tocar violão (do Arthur vai ser de 12 cordas)</div>
+              <div class="chord-area" id="editor-7" contenteditable="true">[Intro] <span class="chord" style="color: rgb(56, 189, 248);">G</span># <span class="chord" style="color: rgb(56, 189, 248);">C</span># <span class="chord" style="color: rgb(56, 189, 248);">G</span># <span class="chord" style="color: rgb(56, 189, 248);">D</span>#
+
+<span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Dentro de mim
+<span class="chord" style="color: rgb(56, 189, 248);">C</span>#                  <span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Há por Ti um amor imaturo
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>#
+Mas por ser imaturo
+<span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Não deixa de ser amor
+
+Por vezes me distraio
+<span class="chord" style="color: rgb(56, 189, 248);">E</span> quando vevejo estou
+<span class="chord" style="color: rgb(56, 189, 248);">Fm</span>                  <span class="chord" style="color: rgb(56, 189, 248);">D</span>#
+Envolvido por paixões desse mundo
+<span class="chord" style="color: rgb(56, 189, 248);">C</span>#
+Mas dentro de mim
+<span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Eu sei a quem minh'alma pertence
+<span class="chord" style="color: rgb(56, 189, 248);">Fm</span>                  <span class="chord" style="color: rgb(56, 189, 248);">D</span>#
+Por quem ela suspira
+
+<span class="chord" style="color: rgb(56, 189, 248);">G#/C</span>
+Então te peço
+<span class="chord" style="color: rgb(56, 189, 248);">C</span>#
+Cole o meu olhar ao Seu
+<span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Prenda as minhas mãos às Suas
+<span class="chord" style="color: rgb(56, 189, 248);">Fm</span>
+Amarre os meus pés aos Teus pés
+<span class="chord" style="color: rgb(56, 189, 248);">D#</span>Pois não há outro lugar
+<span class="chord" style="color: rgb(56, 189, 248);">G#/C</span>
+Onde eu desejo estar, se não
+<span class="chord" style="color: rgb(56, 189, 248);">C</span>#
+Preso ao amado da minh'alma
+<span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Junto ao amado da minh'alma
+<span class="chord" style="color: rgb(56, 189, 248);">Fm</span>
+Sendo assim, quando se moves eu me movo
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>#
+Aonde fores também vou
+<span class="chord" style="color: rgb(56, 189, 248);">G#/C</span>
+Quando preso a ti estou
+
+<span class="chord" style="color: rgb(56, 189, 248);">C</span>#                  <span class="chord" style="color: rgb(56, 189, 248);">G</span>#
+Quero te amar mais
+<span class="chord" style="color: rgb(56, 189, 248);">Fm</span>
+<span class="chord" style="color: rgb(56, 189, 248);">E</span> ter olhos
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>#                  <span class="chord" style="color: rgb(56, 189, 248);">G#/C</span>
+Somente pra você meu Jesus</div>
+            </article>
+          
+            <article class="music-card" id="music-8">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-8">ALIANÇAS E VOTOS</span>
+                  <h2 contenteditable="true" id="titulo-8">Prenda-me a Ti</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-8">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-8">Tom: G</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(8)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-8">Transpose para G#</div>
+              <div class="chord-area" id="editor-8" contenteditable="true">[Intro] <span class="chord">G</span># <span class="chord">C</span># <span class="chord">G</span># <span class="chord">D</span>#
+
+<span class="chord">G</span>#
+Dentro de mim
+<span class="chord">C</span>#                  <span class="chord">G</span>#
+Há por Ti um amor imaturo
+<span class="chord">D</span>#
+Mas por ser imaturo
+<span class="chord">G</span>#
+Não deixa de ser amor
+
+Por vezes me distraio
+<span class="chord">E</span> quando vevejo estou
+<span class="chord">Fm</span>                  <span class="chord">D</span>#
+Envolvido por paixões desse mundo
+<span class="chord">C</span>#
+Mas dentro de mim
+<span class="chord">G</span>#
+Eu sei a quem minh'alma pertence
+<span class="chord">Fm</span>                  <span class="chord">D</span>#
+Por quem ela suspira
+
+<span class="chord">G#/C</span>
+Então te peço
+<span class="chord">C</span>#
+Cole o meu olhar ao Seu
+<span class="chord">G</span>#
+Prenda as minhas mãos às Suas
+<span class="chord">Fm</span>
+Amarre os meus pés aos Teus pés
+<span class="chord">D#</span>Pois não há outro lugar
+<span class="chord">G#/C</span>
+Onde eu desejo estar, se não
+<span class="chord">C</span>#
+Preso ao amado da minh'alma
+<span class="chord">G</span>#
+Junto ao amado da minh'alma
+<span class="chord">Fm</span>
+Sendo assim, quando se moves eu me movo
+<span class="chord">D</span>#
+Aonde fores também vou
+<span class="chord">G#/C</span>
+Quando preso a ti estou
+
+<span class="chord">C</span>#                  <span class="chord">G</span>#
+Quero te amar mais
+<span class="chord">Fm</span>
+<span class="chord">E</span> ter olhos
+<span class="chord">D</span>#                  <span class="chord">G#/C</span>
+Somente pra você meu Jesus</div>
+            </article>
+          
+            <article class="music-card" id="music-9">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-9">ORAÇÃO E BÊNÇÃO</span>
+                  <h2 contenteditable="true" id="titulo-9">Canção de Simeão (refrão instrumental)</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-9">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-9">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(9)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-9"><strong>Obs:</strong> Essa música ira cantar só uma vez o refrão na hora da adoração e emenda na próxima.</div>
+              <div class="chord-area" id="editor-9" contenteditable="true">[Refrão]
+<span class="chord">D9</span>                  <span class="chord">A6/C</span>#
+essa é minha promessa
+<span class="chord">D9</span>                  <span class="chord">A6/C</span>#
+Eu gastarei minha vida pra Te coroar
+<span class="chord">Bm</span>                  <span class="chord">A6/C</span>#
+Esse é o meu anseio
+<span class="chord">D9</span>                  <span class="chord">A6/C</span>#
+O meu amor por Ti não será um segredo
+
+[Transição imediata para Consagração]</div>
+            </article>
+          
+            <article class="music-card" id="music-10">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-10">MOMENTO DE ADORAÇÃO</span>
+                  <h2 contenteditable="true" id="titulo-10">Consagração + Louvor ao rei</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-10">🎤 Simone</span>
+                  <span class="badge" contenteditable="true" id="tone-10">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(10)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-10">Nenhuma observação</div>
+              <div class="chord-area" id="editor-10" contenteditable="true">INTRO  <span class="chord">A</span>  <span class="chord">Em</span>  <span class="chord">G</span>  <span class="chord">D/F</span>#
+
+
+[Primeira Parte]
+<span class="chord">A</span>         <span class="chord">E/G</span>#      <span class="chord">Em/G</span>      <span class="chord">D/F</span>#
+Ao rei dos reis consagro tudo o que sou
+<span class="chord">Dm/F</span>      <span class="chord">A/E</span>       <span class="chord">E</span>
+De gratos louvores transborda o meu coração
+<span class="chord">A</span>         <span class="chord">E/G</span>#      <span class="chord">Em/G</span>      <span class="chord">D/F</span>#
+<span class="chord">A</span> minha vida eu entrego nas Tuas mãos, meu Senhor
+<span class="chord">Dm/F</span>      <span class="chord">A/E</span>       E4        <span class="chord">E</span>
+Pra Te exaltar com todo meu amor
+
+<span class="chord">A</span>         <span class="chord">E/G</span>#      <span class="chord">Em/G</span>      <span class="chord">D/F</span>#
+Eu Te louvarei conforme a Tua justiça
+<span class="chord">Dm/F</span>      <span class="chord">A/E</span>       <span class="chord">B/D</span>#      <span class="chord">E</span>
+<span class="chord">E</span> cantarei louvores, pois Tu és altíssimo
+
+[Pré-Refrão]
+<span class="chord">D</span>         <span class="chord">E</span>         <span class="chord">F#m</span>       <span class="chord">E</span>         <span class="chord">F#m</span>
+Celebrarei a Ti, ó Deus, com meu viver
+<span class="chord">D</span>         <span class="chord">E</span>         <span class="chord">A</span>         <span class="chord">G/B</span>
+Cantarei e contarei as Tuas obras
+<span class="chord">A/C</span>#      <span class="chord">D</span>         <span class="chord">E7/D</span>
+Pois por Tuas mãos foram criados
+<span class="chord">C#7</span>       <span class="chord">F#m</span>       <span class="chord">D</span>         <span class="chord">E</span>         <span class="chord">F#</span>4       <span class="chord">F</span>#
+Terra, <span class="chord">C</span>éu e mar e todo, ser que neles há
+
+[Refrão]
+<span class="chord">Bm</span>        <span class="chord">E</span>         <span class="chord">A</span>         <span class="chord">E/G</span>#      <span class="chord">F#m</span>
+Toda terra celebra a Ti, com cânticos de júbilo
+<span class="chord">E</span>         <span class="chord">D</span>         <span class="chord">E</span>         <span class="chord">F#7</span>
+Pois Tu és o Deus criador
+<span class="chord">Bm</span>        <span class="chord">E</span>         <span class="chord">A</span>         <span class="chord">E/G</span>#      <span class="chord">F#m</span>
+Toda terra celebra a Ti, com cânticos de júbilo
+<span class="chord">E</span>         <span class="chord">D</span>         <span class="chord">E</span>         <span class="chord">A</span>         A4        <span class="chord">A9</span>        <span class="chord">A</span>
+Pois Tu és o Deus criador</div>
+            </article>
+          
+            <article class="music-card" id="music-11">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-11">BEIJO 💍</span>
+                  <h2 contenteditable="true" id="titulo-11">Amor que nos faz um (refrão)</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-11">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-11">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(11)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-11"><strong>Obs:</strong> Depois do beijo mantém instrumental enquanto o pastor encerra. Depois que encerrar e começar as saídas volta para o começo.</div>
+              <div class="chord-area" id="editor-11" contenteditable="true">[Solo da Intro] 4x
+[Intro] 2x: <span class="chord" style="color: rgb(56, 189, 248);">D</span> <span class="chord" style="color: rgb(56, 189, 248);">F#m7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span> <span class="chord" style="color: rgb(56, 189, 248);">A</span> <span class="chord" style="color: rgb(56, 189, 248);">F#m7</span> <span class="chord" style="color: rgb(56, 189, 248);">Bm7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span>
+
+<span class="chord" style="color: rgb(56, 189, 248);">F#m7</span>
+O fogo ardeu e o anjo falou
+<span class="chord" style="color: rgb(56, 189, 248);">Bm</span>                  <span class="chord" style="color: rgb(56, 189, 248);">E</span>
+Onde está o amor
+<span class="chord" style="color: rgb(56, 189, 248);">F#m7</span>
+<span class="chord" style="color: rgb(56, 189, 248);">A</span> glória se foi a chuva molhou
+<span class="chord" style="color: rgb(56, 189, 248);">Bm</span>                  <span class="chord" style="color: rgb(56, 189, 248);">E</span>
+As palavras que ainda antes
+<span class="chord" style="color: rgb(56, 189, 248);">F#m7</span>
+O amor me mostrou
+
+(<span class="chord" style="color: rgb(56, 189, 248);">F#m7</span> <span class="chord" style="color: rgb(56, 189, 248);">Bm7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span>)
+Nunca é tarde demais não (não) 2x
+
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>         <span class="chord" style="color: rgb(56, 189, 248);">Bm7</span>       <span class="chord" style="color: rgb(56, 189, 248);">A</span>
+Pra descobrir o amor
+<span class="chord" style="color: rgb(56, 189, 248);">E</span>
+Que vai além dos meus versos
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>         <span class="chord" style="color: rgb(56, 189, 248);">Bm</span>        <span class="chord" style="color: rgb(56, 189, 248);">A</span>         <span class="chord" style="color: rgb(56, 189, 248);">E</span>         <span class="chord" style="color: rgb(56, 189, 248);">D</span>
+Que parece dizer: É o Senhor que pergunta
+<span class="chord" style="color: rgb(56, 189, 248);">Bm</span>        <span class="chord" style="color: rgb(56, 189, 248);">A</span>         E4
+Onde está você que diz que me adora
+<span class="chord" style="color: rgb(56, 189, 248);">E</span>                   (<span class="chord" style="color: rgb(56, 189, 248);">F#m7</span> <span class="chord" style="color: rgb(56, 189, 248);">Bm7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span>)
+Mas não estende as mãos
+
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>                   <span class="chord" style="color: rgb(56, 189, 248);">F#m7</span>
+O amor que nos faz um
+<span class="chord" style="color: rgb(56, 189, 248);">E</span>                   <span class="chord" style="color: rgb(56, 189, 248);">A9</span>
+O amor que nos faz um
+<span class="chord" style="color: rgb(56, 189, 248);">D</span>                   <span class="chord" style="color: rgb(56, 189, 248);">F#m7</span>
+O amor que se revela a mim
+<span class="chord" style="color: rgb(56, 189, 248);">E</span>                   <span class="chord" style="color: rgb(56, 189, 248);">D</span>
+Como uma bandeira, verdade e graça
+<span class="chord" style="color: rgb(56, 189, 248);">Bm7</span>       <span class="chord" style="color: rgb(56, 189, 248);">E</span>         <span class="chord" style="color: rgb(56, 189, 248);">A</span>         E4
+Um mandamento e a nossa canção
+
+[Solo Final] <span class="chord" style="color: rgb(56, 189, 248);">A</span> <span class="chord" style="color: rgb(56, 189, 248);">E/G</span># <span class="chord" style="color: rgb(56, 189, 248);">F#m7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span> <span class="chord" style="color: rgb(56, 189, 248);">D</span> <span class="chord" style="color: rgb(56, 189, 248);">A/C</span># <span class="chord" style="color: rgb(56, 189, 248);">Bm7</span> <span class="chord" style="color: rgb(56, 189, 248);">E</span>
+
+[Instrumental para encerramento do Pastor]</div>
+            </article>
+          
+            <article class="music-card" id="music-12">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-12">SAÍDA</span>
+                  <h2 contenteditable="true" id="titulo-12">Amor que Nos Faz Um</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-12">🎤 Lucas</span>
+                  <span class="badge" contenteditable="true" id="tone-12">Tom: A</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(12)">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-12">Nenhuma observação</div>
+              <div class="chord-area" id="editor-12" contenteditable="true">[Solo da Intro] 4x
+[Intro] 2x: <span class="chord">D</span> <span class="chord">F#m7</span> <span class="chord">E</span> <span class="chord">A</span> <span class="chord">F#m7</span> <span class="chord">Bm7</span> <span class="chord">E</span>
+
+<span class="chord">F#m7</span>
+O fogo ardeu e o anjo falou
+<span class="chord">Bm</span>                  <span class="chord">E</span>
+Onde está o amor
+<span class="chord">F#m7</span>
+<span class="chord">A</span> glória se foi a chuva molhou
+<span class="chord">Bm</span>                  <span class="chord">E</span>
+As palavras que ainda antes
+<span class="chord">F#m7</span>
+O amor me mostrou
+
+(<span class="chord">F#m7</span> <span class="chord">Bm7</span> <span class="chord">E</span>)
+Nunca é tarde demais não (não) 2x
+
+<span class="chord">D</span>         <span class="chord">Bm7</span>       <span class="chord">A</span>
+Pra descobrir o amor
+<span class="chord">E</span>
+Que vai além dos meus versos
+<span class="chord">D</span>         <span class="chord">Bm</span>        <span class="chord">A</span>         <span class="chord">E</span>         <span class="chord">D</span>
+Que parece dizer: É o Senhor que pergunta
+<span class="chord">Bm</span>        <span class="chord">A</span>         E4
+Onde está você que diz que me adora
+<span class="chord">E</span>                   (<span class="chord">F#m7</span> <span class="chord">Bm7</span> <span class="chord">E</span>)
+Mas não estende as mãos
+
+<span class="chord">D</span>                   <span class="chord">F#m7</span>
+O amor que nos faz um
+<span class="chord">E</span>                   <span class="chord">A9</span>
+O amor que nos faz um
+<span class="chord">D</span>                   <span class="chord">F#m7</span>
+O amor que se revela a mim
+<span class="chord">E</span>                   <span class="chord">D</span>
+Como uma bandeira, verdade e graça
+<span class="chord">Bm7</span>       <span class="chord">E</span>         <span class="chord">A</span>         E4
+Um mandamento e a nossa canção
+
+[Solo Final] <span class="chord">A</span> <span class="chord">E/G</span># <span class="chord">F#m7</span> <span class="chord">E</span> <span class="chord">D</span> <span class="chord">A/C</span># <span class="chord">Bm7</span> <span class="chord">E</span></div>
+            </article>
+          </main>
+  </div>
+
+  <button class="fab visible" id="scroll-fab" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+  <div id="fs-container" class="fs-overlay">
+    <button class="fs-close" onclick="closeFS()" title="Fechar Tela Cheia">✕</button>
+    <div id="fs-pure-text" class="fs-content-pure"><div><h2 id="titulo-2" style="margin: 0px 0px 8px; font-size: 1.8rem; outline: none; font-family: Inter, -apple-system, system-ui, sans-serif; white-space: normal; background-color: rgba(30, 41, 59, 0.7);">Casa (Palavrantiga ao vivo)</h2></div><div><span style="color: rgb(255, 255, 255); font-family: Inter, -apple-system, system-ui, sans-serif; font-size: 13.6px; font-weight: 600; white-space: normal; background-color: rgb(16, 185, 129);">Tom: D</span></div><div><br></div>[Intro]   <span style="color: rgb(56, 189, 248); font-weight: 800;">|D|  (D#)  (G) |D|</span>
+
+<span class="chord">||D||  (D#) (G) |D|</span>
+Deus preferiu essa carne
+
+<span style="color: rgb(56, 189, 248); font-weight: 800;">|D|  (D) |G| |Em| </span><span style="color: rgb(56, 189, 248); font-weight: 800;">|A|  |D|</span>
+Me fez casa
+
+<span class="chord">(F#m)</span> (<span class="chord">G)</span>  3X<div>|<span class="chord" style="color: rgb(56, 189, 248);">A|</span>  </div><div><span class="chord" style="color: rgb(56, 189, 248);">(F#m)</span> (<span class="chord" style="color: rgb(56, 189, 248);">G)</span> |<span class="chord" style="color: rgb(56, 189, 248);">A|</span> </div><div>Abri a porta</div><div>A minha janela
+
+<span class="chord">|Bm|</span>  |<span class="chord">A|  2x</span>
+Dentro de mim
+
+<span class="chord">(D)</span>  (<span class="chord">D/F</span>#)  |G|  </div><div>(Bm) (D) |A|
+Eu sou casa</div><div>ô ô ô ô ô ô </div><div><br></div><div><span class="chord" style="color: rgb(56, 189, 248);">(F#m)</span> (<span class="chord" style="color: rgb(56, 189, 248);">G) </span><span class="chord" style="color: rgb(56, 189, 248);">(F#m)</span> (A<span class="chord" style="color: rgb(56, 189, 248);">)  3x</span></div><div><span class="chord" style="color: rgb(56, 189, 248);"><span class="chord" style="color: rgb(56, 189, 248);">(F#m)</span><span style="color: rgb(248, 250, 252); font-weight: 400;"> (</span><span class="chord" style="color: rgb(56, 189, 248);">G) </span><span class="chord" style="color: rgb(56, 189, 248);">(F#m)</span><span style="color: rgb(248, 250, 252); font-weight: 400;"> (G</span><span class="chord" style="color: rgb(56, 189, 248);">)</span></span></div><div><div>||<span class="chord" style="color: rgb(56, 189, 248);">A||</span>  </div><div>Lá fora</div></div></div>
+  </div>
+
+  <script id="roteiro-data">
+    const roteiro = [
+  {
+    "secao": "🚶‍♂️ ENTRADAS",
+    "itens": [
+      {
+        "id": 1,
+        "momento": "ENTRADA",
+        "titulo": "Salmos 24",
+        "cantor": "",
+        "tom": "D",
+        "obs": "Nenhuma observação",
+        "cifra": "Salmos 24\nTom: D\n\n[Intro] D  Bm  G \n\n[Verso 1]\n\n       D              G\nAo Senhor pertence a terra\n   Bm     A        D\nE tudo o que nela há\n        D          G\nTodos que habitam nela\n     Bm    A      D\nSeu nome irão clamar",
+        "audio": "https://drive.google.com/uc?export=download&id=1B6tuYnChPdbXeQyAXUedOP6Xvfz55qOE"
+      },
+      {
+        "id": 2,
+        "momento": "NOIVO + MÃE",
+        "titulo": "Na Gravidade da Presença",
+        "cantor": "🎤 Lucas",
+        "tom": "E",
+        "obs": "<strong>Estrutura:</strong> Intro → 1ª parte → Refrão → Solo (intro com improviso para transição da próxima música)",
+        "cifra": "Na Gravidade da Presença\nTom: E\n\n\n[Intro] |C#m|  |B|  |E|  |A|\n\n|C#m|  |B|  |E|  |A|\nEu Te conhecia de ouvir falar\nQuando o mundo dentro de mim se calar\nVem como as águas que cortam esse vale\n\n||E||   ||C#m||  ||F#m||  ||B||\neu mal posso esperar\n\n|C#m|  |B|  |E|  |A|",
+        "audio": "https://drive.google.com/uc?export=download&id=1AkeYsGgyM752HlGqRUZVcgOXbToX9chp"
+      },
+      {
+        "id": 3,
+        "momento": "PASTORES",
+        "titulo": "Casa (Palavrantiga ao vivo)",
+        "cantor": "🎤 Lucas",
+        "tom": "D",
+        "obs": "Nenhuma observação",
+        "cifra": "Casa (Palavrantiga ao vivo)\nTom: D\n\n\n[Intro]   |D|  (D#)  (G) |D|\n\n||D||  (D#) (G) |D|\nDeus preferiu essa carne\n\n|D|  (D) |G| |Em| |A|  |D|\nMe fez casa\n\n(F#m) (G)  3X\n|A|  \n(F#m) (G) |A| \nAbri a porta\nA minha janela\n\n|Bm|  |A|  2x\nDentro de mim\n\n(D)  (D/F#)  |G|  \n(Bm) (D) |A|\nEu sou casa\nô ô ô ô ô ô \n\n\n(F#m) (G) (F#m) (A)  3x\n(F#m) (G) (F#m) (G)\n||A||  \nLá fora",
+        "audio": "https://drive.google.com/uc?export=download&id=1gH8-dxfTe_t8zH0m0bL8iDLSYW77er_t"
+      },
+      {
+        "id": 4,
+        "momento": "PAIS E AVÓS",
+        "titulo": "Te Agradeço",
+        "cantor": "🎤 Simone + Lucas",
+        "tom": "E",
+        "obs": "Nenhuma observação",
+        "cifra": "[Intro] E9  D7M(9)  E7M  D7M(9)\n\n[Primeira Parte]\n\n  E9                D7M(9)\nPor tudo o que tens feito\n  E7M                D7M(9)\nPor tudo o que vais fazer\n  E9            A/C#       A/C\nPor tuas promessas e tudo o que és\n   C#m7           F#/A#\nEu quero te agradecer\n              A/B E9\nCom todo o meu ser\n\n[Pré-Refrão]\n\n     D7M(9)  C#m7\nTe agradeço\n\n\n\n     E9              E/D\nTe agradeço por me libertar e salvar\n A/C#    A/C\nPor ter morrido em meu lugar\n     E9        D7M(9)\nTe agrade---ço\n          E7M   D7M(9)\nJesus, te agrade---ço\n       C#m7     F#/A#\nEu te agrade---ço\n     A/B   E9\nTe agrade---ço\n\n( E9  D7M(9)  E7M  D7M(9) )",
+        "audio": "https://drive.google.com/uc?export=download&id=1bnXhtqUfwyzp_Inz4INb5J2Bvjd9xhKR"
+      },
+      {
+        "id": 5,
+        "momento": "PADRINHOS E MADRINHAS",
+        "titulo": "Nossa Riqueza",
+        "cantor": "🎤 Simone + Lucas",
+        "tom": "A",
+        "obs": "<strong>Obs:</strong> A música continua só instrumental para a florista passar.",
+        "cifra": "[Intro] (A) (D) (F#m) (E)\n\n(F#m)  (A) (E)  (D)\n(B)\nNa escola, na rua \nE                   B\nHistórias vividas e do que virá\n\nA                        B\nQuem encontra alguém pra caminhar\nD\nNessa estrada que é viver\nF#m       E           B/D#\nTem esperança e gratidão no olhar\nD\nOs amigos são nossa riqueza\n\nA                   B\nQuem encontra alguém pra caminhar\nD\nNessa estrada que é viver\nF#m       E         B/D#\nTem esperança e gratidão no olhar\nD\nOs amigos são nossa riqueza\n\n( A D F#m E )\n\nF#m                 A\nTá sempre presente com a gente\nE                   D\nNas horas difíceis não pode faltar\nF#m                 A\nÉ voz que incentiva, anima\nE                   D\nColoca pra cima e nos faz levantar\n\nF#m       A         E         D\nE a gente fala das coisas da vida, é papo que não quer parar\nF#m       A         E         B\nFalamos de lutas, de sonhos, histórias vividas e do que virá\n\nA         B         D\nQuem encontra alguém pra caminhar nessa estrada que é viver\nF#m       E         B/D#      D\nTem esperança e gratidão no olhar, os amigos são nossa riqueza\n\nA         B         D\nQuem encontra alguém pra caminhar nessa estrada que é viver\nF#m       E         B/D#      D\nTem esperança e gratidão no olhar, os amigos são nossa riqueza\n\nF#m       A         B         D\nEm todo tempo ama o amigo e na angústia nasce o irmão\nF#m       A         B         D\nEm todo tempo ama o amigo e na angústia nasce o irmão\n\n( F#m A B D )\n( F#m A B D )\n\nA         B         D\nQuem encontra alguém pra caminhar nessa estrada que é viver\nF#m       E         B/D#      D\nTem esperança e gratidão no olhar, os amigos são nossa riqueza\n\nA         B         D\nQuem encontra alguém pra caminhar nessa estrada que é viver\nF#m       E         B/D#      D\nTem esperança e gratidão no olhar, os amigos são nossa riqueza\n\n( A D F#m E )",
+        "audio": "https://drive.google.com/uc?export=download&id=1TC3ctEncXteYefIiC_K08WjfNt8O5o2Z"
+      },
+      {
+        "id": 6,
+        "momento": "NOIVA 👰‍♀️",
+        "titulo": "Marcha Nupcial",
+        "cantor": "🎤 Simone",
+        "tom": "C",
+        "obs": "Nenhuma observação",
+        "cifra": "[Marcha Nupcial em C]\n| C | C | C | C |\n| C | C | G7 | C |\n\n[Parte A]\n| Adim | B7 | Em11 | F6 |\n| C/G | G7 | C | C |\n\n[Transição para F]",
+        "audio": "https://drive.google.com/uc?export=download&id=1qVWjlf6RvnEGfzXYJzJYFQAAKwyd3XDl"
+      },
+      {
+        "id": 7,
+        "momento": "NOIVA 👰‍♀️",
+        "titulo": "Dono do Meu Ser",
+        "cantor": "🎤 Simone",
+        "tom": "F",
+        "obs": "Nenhuma observação",
+        "cifra": "[Dono do Meu Ser]\n[Intro] F A#9\n\nF\nDono do meu ser\nA#9\nGuardião dos meus anseios\nF                   A#9\nO conhecedor do meu coração\nC9                  A#9\nEu me entrego a ti\nC9                  A#9\nEu me entrego a ti\n\nF\nMeu coração é só teu\nA#9\nEu sou achado em teu amor\n\n( F A#9 F A#9 )\n\nF\nEu sou teu pra sempre teu\nA#9\nEu sou teu pra sempre teu\nF\nEu sou teu pra sempre teu\nA#9\nEu sou teu pra sempre teu jesus",
+        "audio": "https://drive.google.com/uc?export=download&id=1Ul_CpzYNTnSDQa3ZOrsYjm1Z_zii4BMr"
+      },
+      {
+        "id": 8,
+        "momento": "MOMENTOS INICIAIS (SOM AMBIENTE)",
+        "titulo": "Prenda-me a Ti ",
+        "cantor": "🎸 Arthur + Luan",
+        "tom": "Ab",
+        "obs": "<strong>Uso:</strong> Boas-vindas, oração inicial, casamento civil e palavra.<br><strong>Obs:</strong> Nessa musica o Arthur e luan irá tocar violão (do Arthur vai ser de 12 cordas)",
+        "cifra": "[Intro] G# C# G# D#\n\nG#\nDentro de mim\nC#                  G#\nHá por Ti um amor imaturo\nD#\nMas por ser imaturo\nG#\nNão deixa de ser amor\n\nPor vezes me distraio\nE quando vevejo estou\nFm                  D#\nEnvolvido por paixões desse mundo\nC#\nMas dentro de mim\nG#\nEu sei a quem minh'alma pertence\nFm                  D#\nPor quem ela suspira\n\nG#/C\nEntão te peço\nC#\nCole o meu olhar ao Seu\nG#\nPrenda as minhas mãos às Suas\nFm\nAmarre os meus pés aos Teus pés\nD#Pois não há outro lugar\nG#/C\nOnde eu desejo estar, se não\nC#\nPreso ao amado da minh'alma\nG#\nJunto ao amado da minh'alma\nFm\nSendo assim, quando se moves eu me movo\nD#\nAonde fores também vou\nG#/C\nQuando preso a ti estou\n\nC#                  G#\nQuero te amar mais\nFm\nE ter olhos\nD#                  G#/C\nSomente pra você meu Jesus",
+        "audio": "https://drive.google.com/uc?export=download&id=1A0wCfpvAcMx49EwuECdUuXntdZq2-vVv"
+      },
+      {
+        "id": 9,
+        "momento": "ORAÇÃO E BÊNÇÃO",
+        "titulo": "Canção de Simeão (refrão instrumental)",
+        "cantor": "🎤 Lucas",
+        "tom": "A",
+        "obs": "<strong>Obs:</strong> Essa música ira cantar só uma vez o refrão na hora da adoração e emenda na próxima.",
+        "cifra": "[Refrão]\nD9                  A6/C#\nessa é minha promessa\nD9                  A6/C#\nEu gastarei minha vida pra Te coroar\nBm                  A6/C#\nEsse é o meu anseio\nD9                  A6/C#\nO meu amor por Ti não será um segredo\n\n[Transição imediata para Consagração]",
+        "audio": "https://drive.google.com/uc?export=download&id=1tyBvl8GtOVffhoqXzal-gIRM3O1VDM2c"
+      },
+      {
+        "id": 10,
+        "momento": "MOMENTO DE ADORAÇÃO",
+        "titulo": "Consagração + Louvor ao rei",
+        "cantor": "🎤 Simone",
+        "tom": "A",
+        "obs": "Nenhuma observação",
+        "cifra": "INTRO  A  Em  G  D/F#\n\n\n[Primeira Parte]\nA         E/G#      Em/G      D/F#\nAo rei dos reis consagro tudo o que sou\nDm/F      A/E       E\nDe gratos louvores transborda o meu coração\nA         E/G#      Em/G      D/F#\nA minha vida eu entrego nas Tuas mãos, meu Senhor\nDm/F      A/E       E4        E\nPra Te exaltar com todo meu amor\n\nA         E/G#      Em/G      D/F#\nEu Te louvarei conforme a Tua justiça\nDm/F      A/E       B/D#      E\nE cantarei louvores, pois Tu és altíssimo\n\n[Pré-Refrão]\nD         E         F#m       E         F#m\nCelebrarei a Ti, ó Deus, com meu viver\nD         E         A         G/B\nCantarei e contarei as Tuas obras\nA/C#      D         E7/D\nPois por Tuas mãos foram criados\nC#7       F#m       D         E         F#4       F#\nTerra, Céu e mar e todo, ser que neles há\n\n[Refrão]\nBm        E         A         E/G#      F#m\nToda terra celebra a Ti, com cânticos de júbilo\nE         D         E         F#7\nPois Tu és o Deus criador\nBm        E         A         E/G#      F#m\nToda terra celebra a Ti, com cânticos de júbilo\nE         D         E         A         A4        A9        A\nPois Tu és o Deus criador",
+        "audio": "https://drive.google.com/uc?export=download&id=1fCHn5Pj5ofN32mxFvrJrp2qZlhOfqAuj"
+      },
+      {
+        "id": 11,
+        "momento": "BEIJO 💍",
+        "titulo": "Amor que nos faz um (refrão)",
+        "cantor": "🎤 Lucas",
+        "tom": "A",
+        "obs": "<strong>Obs:</strong> Depois do beijo mantém instrumental enquanto o pastor encerra. Depois que encerrar e começar as saídas volta para o começo.",
+        "cifra": "[Solo da Intro] 4x\n[Intro] 2x: D F#m7 E A F#m7 Bm7 E\n\nF#m7\nO fogo ardeu e o anjo falou\nBm                  E\nOnde está o amor\nF#m7\nA glória se foi a chuva molhou\nBm                  E\nAs palavras que ainda antes\nF#m7\nO amor me mostrou\n\n(F#m7 Bm7 E)\nNunca é tarde demais não (não) 2x\n\nD         Bm7       A\nPra descobrir o amor\nE\nQue vai além dos meus versos\nD         Bm        A         E         D\nQue parece dizer: É o Senhor que pergunta\nBm        A         E4\nOnde está você que diz que me adora\nE                   (F#m7 Bm7 E)\nMas não estende as mãos\n\nD                   F#m7\nO amor que nos faz um\nE                   A9\nO amor que nos faz um\nD                   F#m7\nO amor que se revela a mim\nE                   D\nComo uma bandeira, verdade e graça\nBm7       E         A         E4\nUm mandamento e a nossa canção\n\n[Solo Final] A E/G# F#m7 E D A/C# Bm7 E\n\n[Instrumental para encerramento do Pastor]",
+        "audio": "https://drive.google.com/uc?export=download&id=1zVwSz2A6fIxxq4vxc0hlxU5ewqBmFXIE"
+      }
+    ]
+  }
+];
+  </script>
+
+  <script>
+    const scale = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const flatToSharp = { 'Db': 'C#', 'Eb': 'D#', 'Gb': 'F#', 'Ab': 'G#', 'Bb': 'A#' };
+
+    function init() {
+      renderContent();
+      window.addEventListener('scroll', () => {
+        const fab = document.getElementById('scroll-fab');
+        if (window.scrollY > 400) fab.classList.add('visible');
+        else fab.classList.remove('visible');
+      });
+    }
+
+    function highlightChords(text) {
+      const chordRegex = /\b([A-G][#b]?(?:m|maj|dim|aug|sus|add|7|9|11|13|6)*[#b591113]*(?:\/[A-G][#b]?)?)\b/g;
+      return text.replace(chordRegex, '<span class="chord">$1</span>');
+    }
+
+    function renderContent() {
+      const indexRoot = document.getElementById('index-root');
+      const musicRoot = document.getElementById('music-root');
+      
+      let indexHTML = '';
+      let musicHTML = '';
+
+      roteiro.forEach((secao, sIdx) => {
+        indexHTML += `<h3 class="ceremony-section-title" contenteditable="true" id="secao-title-${sIdx}">${secao.secao}</h3><div class="index-grid">`;
+        musicHTML += `<h3 class="ceremony-section-title" contenteditable="true" id="music-secao-title-${sIdx}">${secao.secao}</h3>`;
+
+        secao.itens.forEach(item => {
+          indexHTML += `
+            <a href="#music-${item.id}" class="index-item">
+              <span class="index-moment" contenteditable="true" id="idx-momento-${item.id}">${item.momento}</span>
+              <span class="index-title" contenteditable="true" id="idx-titulo-${item.id}">${item.titulo}</span>
+            </a>
+          `;
+
+          musicHTML += `
+            <article class="music-card" id="music-${item.id}">
+              <header class="card-header">
+                <div class="title-group">
+                  <span class="moment-tag" contenteditable="true" id="momento-${item.id}">${item.momento}</span>
+                  <h2 contenteditable="true" id="titulo-${item.id}">${item.titulo}</h2>
+                  <span class="singer-info" contenteditable="true" id="cantor-${item.id}">${item.cantor}</span>
+                  <span class="badge" contenteditable="true" id="tone-${item.id}">Tom: ${item.tom}</span>
+                </div>
+                <div class="control-group">
+                  <button class="btn-tool btn-wide" onclick="openFS(${item.id})">Tela Cheia</button>
+                </div>
+              </header>
+              <div class="observation-box" contenteditable="true" id="obs-${item.id}">${item.obs || 'Nenhuma observação'}</div>
+              <div class="chord-area" id="editor-${item.id}" contenteditable="true">${highlightChords(item.cifra)}</div>
+              ${item.audio ? `
+              <div class="audio-player">
+                <button class="audio-play-btn" id="aplaybtn-${item.id}" onclick="toggleAudio(${item.id})">&#9654;</button>
+                <div class="audio-progress-wrap">
+                  <input type="range" class="audio-progress" id="aprogress-${item.id}" value="0" min="0" max="100" step="0.1" oninput="seekAudio(${item.id}, this.value)">
+                  <div class="audio-times">
+                    <span id="atime-${item.id}">0:00</span>
+                    <span id="adur-${item.id}">--:--</span>
+                  </div>
+                </div>
+                <button class="btn-open-audio" onclick="openAudioPopup('${item.audio}', '${item.titulo}')" title="Abrir player">&#x1F517;</button>
+                <audio id="audio-${item.id}" src="${item.audio}"
+                  ontimeupdate="updateAudioUI(${item.id})"
+                  onloadedmetadata="initAudioDur(${item.id})"
+                  onended="resetAudioBtn(${item.id})"></audio>
+              </div>` : ''}
+            </article>
+          `;
+        });
+        indexHTML += `</div>`;
+      });
+
+      indexRoot.innerHTML = indexHTML;
+      musicRoot.innerHTML = musicHTML;
+    }
+
+    function openFS(id) {
+      const editor = document.getElementById(`editor-${id}`);
+      const pureTextContainer = document.getElementById('fs-pure-text');
+      pureTextContainer.innerHTML = editor.innerHTML;
+      document.getElementById('fs-container').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    }
+
+    function closeFS() {
+      document.getElementById('fs-container').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      if (document.fullscreenElement) document.exitFullscreen();
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+    }
+
+    function saveContent() {
+      // Sincroniza todos os dados antes de salvar
+      roteiro.forEach((secao, sIdx) => {
+        const sTitle = document.getElementById(`secao-title-${sIdx}`);
+        if(sTitle) secao.secao = sTitle.innerText;
+
+        secao.itens.forEach(item => {
+          const momento = document.getElementById(`momento-${item.id}`);
+          const titulo = document.getElementById(`titulo-${item.id}`);
+          const cantor = document.getElementById(`cantor-${item.id}`);
+          const toneBadge = document.getElementById(`tone-${item.id}`);
+          const obs = document.getElementById(`obs-${item.id}`);
+          const editor = document.getElementById(`editor-${item.id}`);
+
+          if(momento) item.momento = momento.innerText;
+          if(titulo) item.titulo = titulo.innerText;
+          if(cantor) item.cantor = cantor.innerText;
+          if(toneBadge) item.tom = toneBadge.innerText.replace('Tom: ', '');
+          if(obs) item.obs = obs.innerHTML;
+          if(editor) item.cifra = editor.innerText;
+        });
+      });
+
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      let fullHtml = document.documentElement.outerHTML;
+      
+      const roteiroString = `const roteiro = ${JSON.stringify(roteiro, null, 2)};`;
+      const regexRoteiro = /const roteiro = \[[\s\S]*?\];/;
+      fullHtml = fullHtml.replace(regexRoteiro, roteiroString);
+      fullHtml = fullHtml.replace(/data-theme="(dark|light)"/, `data-theme="${currentTheme}"`);
+
+      const blob = new Blob([fullHtml], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cifras-studio-editavel-total.html';
+      a.click();
+      alert('Repertório salvo! Todas as suas edições de texto e cifras foram gravadas.');
+    }
+
+    init();
+  
+    function toggleAudio(id) {
+      const audio = document.getElementById('audio-' + id);
+      const btn = document.getElementById('aplaybtn-' + id);
+      document.querySelectorAll('audio').forEach(a => {
+        if (a.id !== 'audio-' + id && !a.paused) {
+          a.pause();
+          const oid = a.id.replace('audio-', '');
+          const ob = document.getElementById('aplaybtn-' + oid);
+          if (ob) ob.innerHTML = '&#9654;';
+        }
+      });
+      if (audio.paused) { audio.play(); btn.innerHTML = '&#9646;&#9646;'; }
+      else { audio.pause(); btn.innerHTML = '&#9654;'; }
+    }
+    function seekAudio(id, val) {
+      const audio = document.getElementById('audio-' + id);
+      if (audio.duration) audio.currentTime = (val / 100) * audio.duration;
+    }
+    function updateAudioUI(id) {
+      const audio = document.getElementById('audio-' + id);
+      const prog = document.getElementById('aprogress-' + id);
+      const timeEl = document.getElementById('atime-' + id);
+      if (audio.duration) {
+        prog.value = (audio.currentTime / audio.duration) * 100;
+        timeEl.textContent = fmtTime(audio.currentTime);
+      }
+    }
+    function initAudioDur(id) {
+      const audio = document.getElementById('audio-' + id);
+      const durEl = document.getElementById('adur-' + id);
+      if (durEl) durEl.textContent = fmtTime(audio.duration);
+    }
+    function resetAudioBtn(id) {
+      const btn = document.getElementById('aplaybtn-' + id);
+      const prog = document.getElementById('aprogress-' + id);
+      if (btn) btn.innerHTML = '&#9654;';
+      if (prog) prog.value = 0;
+    }
+    function fmtTime(s) {
+      if (!s || isNaN(s)) return '--:--';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    function openAudioPopup(src, titulo) {
+      const modal = document.getElementById('audio-modal');
+      const audio = document.getElementById('popup-audio');
+      const title = document.getElementById('popup-title');
+      // Pause all inline players
+      document.querySelectorAll('audio:not(#popup-audio)').forEach(a => {
+        a.pause();
+        const oid = a.id.replace('audio-', '');
+        const ob = document.getElementById('aplaybtn-' + oid);
+        if (ob) ob.innerHTML = '&#9654;';
+      });
+      title.textContent = titulo;
+      audio.src = src;
+      audio.play();
+      modal.style.display = 'flex';
+    }
+    function closeAudioPopup() {
+      const modal = document.getElementById('audio-modal');
+      const audio = document.getElementById('popup-audio');
+      audio.pause();
+      audio.src = '';
+      modal.style.display = 'none';
+    }
+    // Close on backdrop click
+    document.getElementById('audio-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeAudioPopup();
+    });
+</script>
+
+
+
+<!-- Audio Popup Modal -->
+<div id="audio-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+  <div style="background:var(--card-bg); border:1px solid var(--glass-border); border-radius:20px; padding:30px; min-width:320px; max-width:90vw; box-shadow:0 30px 80px rgba(0,0,0,0.5); position:relative; display:flex; flex-direction:column; gap:16px; align-items:center;">
+    <button onclick="closeAudioPopup()" style="position:absolute; top:14px; right:16px; background:transparent; border:none; color:var(--text-dim); font-size:1.4rem; cursor:pointer; line-height:1;">✕</button>
+    <div id="popup-title" style="font-weight:700; font-size:1.1rem; color:var(--text-main); text-align:center; padding-right:20px;"></div>
+    <audio id="popup-audio" controls autoplay style="width:100%; border-radius:10px; outline:none; accent-color:var(--accent);"></audio>
+  </div>
+</div>
+</body></html>
