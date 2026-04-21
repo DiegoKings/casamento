@@ -1304,7 +1304,8 @@ Eu sou casa</div><div>ô ô ô ô ô ô </div><div><br></div><div><span class="c
                   </div>
                 </div>
                 <button class="btn-open-audio" onclick="openAudioPopup('${item.audio}', '${item.titulo}')" title="Abrir player">&#x1F517;</button>
-                <audio id="audio-${item.id}" src="${item.audio}"
+                <audio id="audio-${item.id}" preload="none"
+                  data-src="${item.audio}"
                   ontimeupdate="updateAudioUI(${item.id})"
                   onloadedmetadata="initAudioDur(${item.id})"
                   onended="resetAudioBtn(${item.id})"></audio>
@@ -1395,8 +1396,17 @@ Eu sou casa</div><div>ô ô ô ô ô ô </div><div><br></div><div><span class="c
           if (ob) ob.innerHTML = '&#9654;';
         }
       });
-      if (audio.paused) { audio.play(); btn.innerHTML = '&#9646;&#9646;'; }
-      else { audio.pause(); btn.innerHTML = '&#9654;'; }
+      // Lazy load src on first play
+      if (!audio.src || audio.src === window.location.href) {
+        audio.src = audio.getAttribute('data-src');
+        audio.load();
+      }
+      if (audio.paused) {
+        audio.play().then(() => { btn.innerHTML = '&#9646;&#9646;'; }).catch(() => {});
+      } else {
+        audio.pause();
+        btn.innerHTML = '&#9654;';
+      }
     }
     function seekAudio(id, val) {
       const audio = document.getElementById('audio-' + id);
@@ -1442,7 +1452,8 @@ Eu sou casa</div><div>ô ô ô ô ô ô </div><div><br></div><div><span class="c
       });
       title.textContent = titulo;
       audio.src = src;
-      audio.play();
+      audio.load();
+      audio.play().catch(() => {});
       modal.style.display = 'flex';
     }
     function closeAudioPopup() {
